@@ -1,36 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Menu from '../components/header/menu/menu';
 import { useAuthContext } from '../context/AuthContext';
-import { collection, DocumentData, getDocs, limit, orderBy, query, QueryDocumentSnapshot } from 'firebase/firestore';
+import { collection, DocumentData, getDocs, limit, orderBy, query, QueryDocumentSnapshot, where } from 'firebase/firestore';
 import { firestore } from '../firebase';
 import CircularProgress from '@mui/material/CircularProgress';
 import Restaurant from '../components/restaurant/restaurant';
 import { MapComponent } from '../components/map/mapComponent';
 import { RestaurantInterface } from '../interface/restaurant';
+import { average } from '../utils';
+import getRestaurants from '../service/restaurant';
 
 const Home: NextPage = () => {
-  const [restaurants, setRestaurants] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
+  const [restaurants, setRestaurants] = useState<RestaurantInterface[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [clickedRestaurant, setClickedRestaurant] = useState<RestaurantInterface>();
   const { user, logout } = useAuthContext();
-  const router = useRouter();
-  const restaurantsCollection = collection(firestore,'restaurants');
+  const router = useRouter();  
 
-  const getRestaurants = async () => {
-    const restaurantsQuery = query(restaurantsCollection,orderBy('grade'));
-    const querySnapshot = await getDocs(restaurantsQuery);
-    const result: QueryDocumentSnapshot<DocumentData>[] = [];
-    
-    querySnapshot.forEach((snapshot) => {
-      result.push(snapshot);
-    });
-    setRestaurants(result);
+  const getAllRestaurants = async () => {
+    setRestaurants(await getRestaurants());
   };
 
   useEffect( () => {
-    getRestaurants();
+    getAllRestaurants();
     setTimeout( () => {
       setLoading(false);
     },2000)
@@ -62,7 +56,18 @@ const Home: NextPage = () => {
             ) : (
               restaurants.map((restaurant, index) => {
                 return (
-                  <Restaurant key={index} id={restaurant.id} name={restaurant.get('name')} description={restaurant.get('description')}  image={restaurant.get('image')}  grade={restaurant.get('grade')} address={restaurant.get('address')} phoneNumber={restaurant.get('phoneNumber')}/>                )
+                  <Restaurant 
+                    key={index} 
+                    {...restaurant}
+                    // id={restaurant.id} 
+                    // name={restaurant.get('name')} 
+                    // description={restaurant.get('description')}  
+                    // image={restaurant.get('image')}  
+                    // notation={getNotation(restaurant.id)} 
+                    // address={restaurant.get('address')} 
+                    // phoneNumber={restaurant.get('phoneNumber')}
+                  />                
+                )
               })
             )
           }
