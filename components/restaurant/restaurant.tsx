@@ -1,20 +1,16 @@
-import { useState } from 'react';
-import { Restaurant } from "../../interface/restaurant";
+import { useState, useEffect } from 'react';
+import { RestaurantInterface } from "../../interface/restaurant";
 import Rating from '@mui/material/Rating';
 import { doc, updateDoc } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import Image from 'next/image';
+import { addNotation } from '../../service/notation';
 
-const Restaurant: React.FC<Restaurant> = ({name, address, grade, phoneNumber, id, image, description}) => {
-  const [gradeValue, setGradeValue] = useState<number | null>(grade);
+const Restaurant: React.FC<RestaurantInterface> = ({name, address, notation, phoneNumber, id, image, description}) => {
+  const [notationValue, setNotationValue] = useState<number>(notation);
 
-  const updateGrade = async (newValue: number) => {
-    const _todo = doc(firestore,`restaurants/${id}`);
-    const average = (grade + newValue)/2;
-    await updateDoc(_todo,{
-    "grade": average
-    });
-    setGradeValue(average);
+  const addNewNotation = async (id: string, newValue: number) => {
+    setNotationValue(await addNotation(id, newValue));
   }
   
   return (
@@ -46,10 +42,10 @@ const Restaurant: React.FC<Restaurant> = ({name, address, grade, phoneNumber, id
         <div className='p-4'>
           <Rating
             name="simple-controlled"
-            value={gradeValue}
+            value={notationValue}
             onChange={(event, newValue) => {
               if (newValue != null){
-                updateGrade(newValue);
+                addNewNotation(id, newValue);
               }
             }}
           />
