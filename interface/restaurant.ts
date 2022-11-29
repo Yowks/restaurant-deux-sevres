@@ -2,7 +2,7 @@ export interface RestaurantInterface {
   id: string,
   name: string,
   address: string,
-  grade: number,
+  notation: number,
   phoneNumber: string,
   image: string,
   description: string
