@@ -14,7 +14,7 @@ const Restaurant: React.FC<RestaurantInterface> = ({name, address, notation, pho
   }
   
   return (
-    <div className="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4">
+    <div className="w-full">
       <div className="relative pb-48 overflow-hidden">
         <Image
           src={image}
@@ -25,7 +25,7 @@ const Restaurant: React.FC<RestaurantInterface> = ({name, address, notation, pho
       </div>
       <div className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
         <div className="p-4">
-          <span className="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">Les mieux notés</span>
+          <span className="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">Les coups de coeur</span>
           <h2 className="mt-2 mb-2  font-bold">{name}</h2>
           <p className="text-sm">
             {description}
