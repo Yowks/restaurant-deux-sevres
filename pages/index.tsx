@@ -40,7 +40,7 @@ const Home: NextPage = () => {
       <Menu />
       <div className="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
         <div className='w-full' style={{height:"250px"}}>
-          {/* <MapComponent {...clickedRestaurant}/> */}
+          <MapComponent {...clickedRestaurant}/>
         </div>
         <div className='flex flex-wrap -mx-4'>
           {
@@ -56,17 +56,11 @@ const Home: NextPage = () => {
             ) : (
               restaurants.map((restaurant, index) => {
                 return (
-                  <Restaurant 
-                    key={index} 
-                    {...restaurant}
-                    // id={restaurant.id} 
-                    // name={restaurant.get('name')} 
-                    // description={restaurant.get('description')}  
-                    // image={restaurant.get('image')}  
-                    // notation={getNotation(restaurant.id)} 
-                    // address={restaurant.get('address')} 
-                    // phoneNumber={restaurant.get('phoneNumber')}
-                  />                
+                  <div key={index} className="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4" onClick={() => setClickedRestaurant(restaurant)}>
+                    <Restaurant
+                      {...restaurant}
+                    />   
+                  </div>             
                 )
               })
             )
