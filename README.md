@@ -16,6 +16,8 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID = <Put your messagingSenderId>
 NEXT_PUBLIC_FIREBASE_APP_ID = <Put your appId>
 ```
 
+> For this project my crendentials are already there
+
 Then run the development server:
 
 ```bash

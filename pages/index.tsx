@@ -3,13 +3,10 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Menu from '../components/header/menu/menu';
 import { useAuthContext } from '../context/AuthContext';
-import { collection, DocumentData, getDocs, limit, orderBy, query, QueryDocumentSnapshot, where } from 'firebase/firestore';
-import { firestore } from '../firebase';
 import CircularProgress from '@mui/material/CircularProgress';
 import Restaurant from '../components/restaurant/restaurant';
 import { MapComponent } from '../components/map/mapComponent';
 import { RestaurantInterface } from '../interface/restaurant';
-import { average } from '../utils';
 import getRestaurants from '../service/restaurant';
 
 const Home: NextPage = () => {

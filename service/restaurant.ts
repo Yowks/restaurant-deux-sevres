@@ -1,7 +1,9 @@
-import { collection, DocumentData, getDocs, limit, orderBy, query, QueryDocumentSnapshot, where } from 'firebase/firestore';
-import { firestore } from '../firebase';
+import { collection, DocumentData, getDocs, getFirestore, limit, orderBy, query, QueryDocumentSnapshot, where } from 'firebase/firestore';
+import firebaseApp from '../firebase';
 import { RestaurantInterface } from '../interface/restaurant';
 import { getNotation } from './notation';
+
+const firestore = getFirestore(firebaseApp);
 const restaurantsCollection = collection(firestore,'restaurants');
 
 const getRestaurants = async () => {

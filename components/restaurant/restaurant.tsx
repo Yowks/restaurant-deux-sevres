@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { RestaurantInterface } from "../../interface/restaurant";
 import Rating from '@mui/material/Rating';
-import { doc, updateDoc } from 'firebase/firestore';
-import { firestore } from '../../firebase';
 import Image from 'next/image';
 import { addNotation } from '../../service/notation';
 
